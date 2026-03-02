@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "André Esteves",
+    "subtitle": "Full Stack Engineer | Bringing Ideas to Life",
+    "cta": "View My Work",
+    "scrollHint": "Scroll to explore"
+  },
+  "about": {
+    "heading": "About Me",
+    "p1": "I'm a full-stack engineer who enjoys turning interesting ideas into professional, fully functional products. I focus on clean architecture, best practices, and delivery that works.",
+    "p2": "With experience across front-end and back-end, I bring ideas to life with solid code, no shortcuts. I prioritize maintainability, performance, and solutions that scale.",
+    "p3": "I'm always on the lookout for new ideas to bring to market and turn into real products.",
+    "experienceYears": "2+",
+    "experienceLabel": "Years of Experience",
+    "projectsCount": "5+",
+    "projectsLabel": "Projects Completed",
+    "techCount": "15+",
+    "techLabel": "Technologies"
+  },
+  "projects": {
+    "heading": "Featured Projects",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "items": {
+      "0": {
+        "title": "E-Commerce Platform",
+        "description": "A full-featured e-commerce platform with real-time inventory, payment processing, and an admin dashboard.",
+        "tech": "Next.js, TypeScript, Stripe, PostgreSQL"
+      },
+      "1": {
+        "title": "AI Chat Application",
+        "description": "Real-time AI-powered chat application with natural language processing and contextual responses.",
+        "tech": "React, Node.js, OpenAI, WebSockets"
+      },
+      "2": {
+        "title": "Analytics Dashboard",
+        "description": "Interactive data visualization dashboard with real-time metrics, custom charts, and exportable reports.",
+        "tech": "Next.js, D3.js, Tailwind, Supabase"
+      },
+      "3": {
+        "title": "Mobile Fitness App",
+        "description": "Cross-platform fitness tracking application with workout planning, progress tracking, and social features.",
+        "tech": "React Native, Firebase, Redux"
+      }
+    }
+  },
+  "skills": {
+    "heading": "Skills & Technologies",
+    "subtitle": "The tools & technologies I work with daily",
+    "technologies": "technologies",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Tools & DevOps",
+      "design": "Design"
+    }
+  },
+  "contact": {
+    "heading": "Get In Touch",
+    "description": "Have a project in mind or just want to chat? Feel free to reach out. I'm always open to new opportunities and collaborations.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Next.js, Three.js & Framer Motion"
+  }
+}

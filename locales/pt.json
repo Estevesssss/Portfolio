@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "about": "Sobre",
+    "projects": "Projetos",
+    "skills": "Competências",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "André Esteves",
+    "subtitle": "Engenheiro Full Stack | Dar Vida a Ideias",
+    "cta": "Ver os Meus Trabalhos",
+    "scrollHint": "Deslize para explorar"
+  },
+  "about": {
+    "heading": "Sobre Mim",
+    "p1": "Sou engenheiro full-stack e gosto de transformar ideias interessantes em produtos profissionais e 100% funcionais. Foco em arquitetura limpa, boas práticas e entrega que funciona.",
+    "p2": "Com experiência em front-end e back-end, dou vida a ideias com código sólido. Priorizo manutenibilidade, performance e soluções que escalam.",
+    "p3": "Tenho sempre o olho atento a novas ideias para colocar no mercado e transformar em produtos reais.",
+    "experienceYears": "2+",
+    "experienceLabel": "Anos de Experiência",
+    "projectsCount": "5+",
+    "projectsLabel": "Projetos Concluídos",
+    "techCount": "15+",
+    "techLabel": "Tecnologias"
+  },
+  "projects": {
+    "heading": "Projetos em Destaque",
+    "viewProject": "Ver Projeto",
+    "viewCode": "Ver Código",
+    "items": {
+      "0": {
+        "title": "Plataforma E-Commerce",
+        "description": "Uma plataforma de e-commerce completa com inventário em tempo real, processamento de pagamentos e painel de administração.",
+        "tech": "Next.js, TypeScript, Stripe, PostgreSQL"
+      },
+      "1": {
+        "title": "Aplicação de Chat com IA",
+        "description": "Aplicação de chat em tempo real com inteligência artificial, processamento de linguagem natural e respostas contextuais.",
+        "tech": "React, Node.js, OpenAI, WebSockets"
+      },
+      "2": {
+        "title": "Dashboard de Análises",
+        "description": "Dashboard interativo de visualização de dados com métricas em tempo real, gráficos personalizados e relatórios exportáveis.",
+        "tech": "Next.js, D3.js, Tailwind, Supabase"
+      },
+      "3": {
+        "title": "App Fitness Mobile",
+        "description": "Aplicação de acompanhamento fitness multiplataforma com planeamento de treinos, acompanhamento de progresso e funcionalidades sociais.",
+        "tech": "React Native, Firebase, Redux"
+      }
+    }
+  },
+  "skills": {
+    "heading": "Competências & Tecnologias",
+    "subtitle": "As ferramentas e tecnologias com que trabalho diariamente",
+    "technologies": "tecnologias",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Ferramentas & DevOps",
+      "design": "Design"
+    }
+  },
+  "contact": {
+    "heading": "Entre em Contacto",
+    "description": "Tem um projeto em mente ou quer simplesmente conversar? Não hesite em contactar-me. Estou sempre aberto a novas oportunidades e colaborações.",
+    "nameLabel": "Nome",
+    "namePlaceholder": "O seu nome",
+    "emailLabel": "Email",
+    "emailPlaceholder": "o-seu@email.com",
+    "messageLabel": "Mensagem",
+    "messagePlaceholder": "Fale-me sobre o seu projeto...",
+    "send": "Enviar Mensagem",
+    "sending": "A enviar...",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Algo correu mal. Tente novamente."
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados.",
+    "builtWith": "Feito com Next.js, Three.js & Framer Motion"
+  }
+}
