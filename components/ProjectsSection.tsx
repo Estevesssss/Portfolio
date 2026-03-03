@@ -10,9 +10,8 @@ type SlideContent = { type: "custom"; node: React.ReactNode } | { type: "image";
 /** URLs and custom slides per project. Key = project id from locale (projects.items.*.id). */
 const PROJECT_SLIDES: Record<string, SlideContent[]> = {
   tableia: [
-    { type: "custom", node: <TableiaLogo className="h-full w-full object-contain p-4" /> },
     { type: "image", src: "https://github.com/user-attachments/assets/f342dfa9-33cd-4141-a299-1da6320f25a9" },
-    { type: "image", src: "https://github.com/user-attachments/assets/6b80a4b4-7a4d-4c16-b631-1b8aff191a99" },
+    //{ type: "image", src: "https://github.com/user-attachments/assets/6b80a4b4-7a4d-4c16-b631-1b8aff191a99" },
   ],
   scortop: [
     { type: "image", src: "https://github.com/user-attachments/assets/84904580-c709-44c6-bb89-4ed10db6c2e7" },

@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Portfolio | André Esteves",
   description:
     "Premium futuristic developer portfolio built with Next.js, Three.js, and Framer Motion.",
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
