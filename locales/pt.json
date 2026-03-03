@@ -29,21 +29,25 @@
     "viewCode": "Ver Código",
     "items": {
       "0": {
-        "title": "Plataforma E-Commerce",
-        "description": "Uma plataforma de e-commerce completa com inventário em tempo real, processamento de pagamentos e painel de administração.",
+        "id": "tableia",
+        "title": "Tableia.co",
+        "description": "Uma CRM de gestão para restaurantes, facilitando a gestão de reservas, mesas e funcionários, tudo isto com mudanças de estados em tempo real",
         "tech": "Next.js, TypeScript, Stripe, PostgreSQL"
       },
       "1": {
-        "title": "Aplicação de Chat com IA",
-        "description": "Aplicação de chat em tempo real com inteligência artificial, processamento de linguagem natural e respostas contextuais.",
-        "tech": "React, Node.js, OpenAI, WebSockets"
+        "id": "scortop",
+        "title": "Scortop",
+        "description": "Loja de equipamentos e artigos de pádel online com um CRM de administração imbutido.",
+        "tech": "Next.js, Pinata, Stripe"
       },
       "2": {
+        "id": "dashboard",
         "title": "Dashboard de Análises",
         "description": "Dashboard interativo de visualização de dados com métricas em tempo real, gráficos personalizados e relatórios exportáveis.",
         "tech": "Next.js, D3.js, Tailwind, Supabase"
       },
       "3": {
+        "id": "fitness",
         "title": "App Fitness Mobile",
         "description": "Aplicação de acompanhamento fitness multiplataforma com planeamento de treinos, acompanhamento de progresso e funcionalidades sociais.",
         "tech": "React Native, Firebase, Redux"

@@ -1,15 +1,136 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useState, useCallback } from "react";
+import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import TableiaLogo from "@/components/svg/TableiaLogo";
 
-const PROJECT_IMAGES = [
-  "/projects/project-1.jpg",
-  "/projects/project-2.jpg",
-  "/projects/project-3.jpg",
-  "/projects/project-4.jpg",
-];
+type SlideContent = { type: "custom"; node: React.ReactNode } | { type: "image"; src: string };
+
+/** URLs and custom slides per project. Key = project id from locale (projects.items.*.id). */
+const PROJECT_SLIDES: Record<string, SlideContent[]> = {
+  tableia: [
+    { type: "custom", node: <TableiaLogo className="h-full w-full object-contain p-4" /> },
+    { type: "image", src: "https://github.com/user-attachments/assets/f342dfa9-33cd-4141-a299-1da6320f25a9" },
+    { type: "image", src: "https://github.com/user-attachments/assets/6b80a4b4-7a4d-4c16-b631-1b8aff191a99" },
+  ],
+  scortop: [
+    { type: "image", src: "https://github.com/user-attachments/assets/84904580-c709-44c6-bb89-4ed10db6c2e7" },
+  ],
+};
+
+function getSlidesForProject(projectId: string): SlideContent[] {
+  return PROJECT_SLIDES[projectId] ?? [];
+}
+
+/** Project URL for "Ver Projeto" button. Key = project id. */
+const PROJECT_LINKS: Record<string, string> = {
+  tableia: "https://tableia.co",
+};
+
+function ProjectCarousel({
+  projectId,
+  className,
+}: {
+  projectId: string;
+  className?: string;
+}) {
+  const [current, setCurrent] = useState(0);
+  const slides = getSlidesForProject(projectId);
+  const hasSlides = slides.length > 0;
+  const hasMultiple = slides.length > 1;
+
+  const goTo = useCallback(
+    (index: number) => {
+      setCurrent((prev) => {
+        const next = index;
+        if (next < 0) return slides.length - 1;
+        if (next >= slides.length) return 0;
+        return next;
+      });
+    },
+    [slides.length]
+  );
+
+  if (!hasSlides) {
+    return (
+      <div
+        className={`flex aspect-video w-full items-center justify-center overflow-hidden bg-surface-hover ${className ?? ""}`}
+      >
+        <div className="text-muted/30">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative aspect-video w-full overflow-hidden bg-surface-hover ${className ?? ""}`}>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={current}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {slides[current].type === "custom"
+            ? slides[current].node
+            : (
+                <img
+                  src={slides[current].type === "image" ? slides[current].src : ""}
+                  alt=""
+                  className="h-full w-full object-contain"
+                />
+              )}
+        </motion.div>
+      </AnimatePresence>
+
+      {hasMultiple && (
+        <>
+          <button
+            type="button"
+            onClick={() => goTo(current === 0 ? slides.length - 1 : current - 1)}
+            className="absolute left-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg backdrop-blur-sm transition-colors hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Slide anterior"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => goTo(current === slides.length - 1 ? 0 : current + 1)}
+            className="absolute right-2 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-lg backdrop-blur-sm transition-colors hover:bg-surface focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Slide seguinte"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+          <div className="absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => goTo(i)}
+                className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  i === current ? "bg-accent" : "bg-foreground/30 hover:bg-foreground/50"
+                }`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 interface TiltCardProps {
   index: number;
@@ -92,18 +213,13 @@ export default function ProjectsSection() {
       </motion.h2>
 
       <div className="grid w-full gap-8 sm:grid-cols-2">
-        {[0, 1, 2, 3].map((i) => (
-          <TiltCard key={i} index={i}>
-            {/* Image placeholder */}
-            <div className="relative aspect-video w-full overflow-hidden bg-surface-hover">
-              <div className="flex h-full items-center justify-center text-muted/30">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        {[0, 1].map((i) => {
+          const projectId = t(`projects.items.${i}.id`);
+          return (
+          <TiltCard key={projectId} index={i}>
+            <div className="relative">
+              <ProjectCarousel projectId={projectId} />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
             </div>
 
             <div className="relative z-10 p-6">
@@ -130,7 +246,9 @@ export default function ProjectsSection() {
 
               <div className="flex gap-3">
                 <motion.a
-                  href="#"
+                  href={PROJECT_LINKS[projectId] ?? "#"}
+                  target={PROJECT_LINKS[projectId] ? "_blank" : undefined}
+                  rel={PROJECT_LINKS[projectId] ? "noopener noreferrer" : undefined}
                   className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
@@ -149,7 +267,8 @@ export default function ProjectsSection() {
               </div>
             </div>
           </TiltCard>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
