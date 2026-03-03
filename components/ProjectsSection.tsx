@@ -85,7 +85,7 @@ function ProjectCarousel({
                 <img
                   src={slides[current].type === "image" ? slides[current].src : ""}
                   alt=""
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               )}
         </motion.div>
