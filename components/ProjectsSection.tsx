@@ -13,9 +13,6 @@ const PROJECT_SLIDES: Record<string, SlideContent[]> = {
     { type: "image", src: "https://github.com/user-attachments/assets/f342dfa9-33cd-4141-a299-1da6320f25a9" },
     //{ type: "image", src: "https://github.com/user-attachments/assets/6b80a4b4-7a4d-4c16-b631-1b8aff191a99" },
   ],
-  scortop: [
-    { type: "image", src: "https://github.com/user-attachments/assets/84904580-c709-44c6-bb89-4ed10db6c2e7" },
-  ],
 };
 
 function getSlidesForProject(projectId: string): SlideContent[] {
@@ -212,7 +209,7 @@ export default function ProjectsSection() {
       </motion.h2>
 
       <div className="grid w-full gap-8 sm:grid-cols-2">
-        {[0, 1].map((i) => {
+        {[0].map((i) => {
           const projectId = t(`projects.items.${i}.id`);
           return (
           <TiltCard key={projectId} index={i}>

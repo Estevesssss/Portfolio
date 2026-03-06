@@ -33,24 +33,6 @@
         "title": "Tableia.co",
         "description": "A restaurant management CRM for reservations, tables and staff, with real-time state updates.",
         "tech": "Next.js, TypeScript, Stripe, PostgreSQL"
-      },
-      "1": {
-        "id": "scortop",
-        "title": "Scortop",
-        "description": "Online padel equipment and gear store with a built-in admin CRM.",
-        "tech": "Next.js, Pinata, Stripe"
-      },
-      "2": {
-        "id": "dashboard",
-        "title": "Analytics Dashboard",
-        "description": "Interactive data visualization dashboard with real-time metrics, custom charts, and exportable reports.",
-        "tech": "Next.js, D3.js, Tailwind, Supabase"
-      },
-      "3": {
-        "id": "fitness",
-        "title": "Mobile Fitness App",
-        "description": "Cross-platform fitness tracking application with workout planning, progress tracking, and social features.",
-        "tech": "React Native, Firebase, Redux"
       }
     }
   },
