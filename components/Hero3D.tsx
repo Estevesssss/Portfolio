@@ -3,8 +3,6 @@
 import { Suspense, lazy, useRef } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useTheme } from "@/contexts/ThemeContext";
-
 const HeroScene = lazy(() => import("@/components/three/HeroScene"));
 
 function CanvasLoader() {
@@ -53,8 +51,6 @@ function ScrollIndicator() {
 
 export default function Hero3D() {
   const { t } = useLanguage();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const sectionRef = useRef<HTMLElement>(null);
 
   const containerVariants = {
@@ -100,11 +96,7 @@ export default function Hero3D() {
         </motion.h1>
 
         <motion.p
-          className={`mb-10 max-w-xl text-lg sm:text-xl ${
-            isDark
-              ? "text-muted"
-              : "font-medium text-foreground [text-shadow:0_1px_2px_rgba(0,0,0,0.06)]"
-          }`}
+          className="mb-10 max-w-xl text-lg sm:text-xl text-muted"
           variants={itemVariants}
         >
           {t("hero.subtitle")}
@@ -112,11 +104,7 @@ export default function Hero3D() {
 
         <motion.a
           href="#projects"
-          className={`hero-cta group relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold transition-all duration-300 ${
-            isDark
-              ? "border border-accent/30 bg-accent/10 text-accent-glow backdrop-blur-sm hover:border-accent/60 hover:bg-accent/20 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]"
-              : "bg-accent text-white shadow-lg shadow-accent/30 hover:bg-accent-glow hover:shadow-xl hover:shadow-accent/40"
-          }`}
+          className="hero-cta group relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold transition-all duration-300 border border-accent/30 bg-accent/10 text-accent-glow backdrop-blur-sm hover:border-accent/60 hover:bg-accent/20 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}

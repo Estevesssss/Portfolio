@@ -51,9 +51,11 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-10 sm:flex-row sm:justify-between">
         {/* Left */}
         <div className="flex flex-col items-center gap-1 sm:items-start">
-          <span className="text-sm font-bold text-foreground">
-            AE<span className="text-accent">.</span>
-          </span>
+          <img
+            src="/Andre Esteves Logo-02.svg"
+            alt="AE Logo"
+            className="h-8 w-8"
+          />
           <span className="text-xs text-muted">
             &copy; {year} &middot; {t("footer.rights")}
           </span>

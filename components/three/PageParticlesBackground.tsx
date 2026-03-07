@@ -3,12 +3,9 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
 import Particles from "./Particles";
-import { useTheme } from "@/contexts/ThemeContext";
-
 export default function PageParticlesBackground() {
   const [webGLSupported, setWebGLSupported] = useState(true);
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const isDark = true;
 
   useEffect(() => {
     try {

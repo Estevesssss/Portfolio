@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
-import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   title: "Portfolio | André Esteves",
   description:
     "Premium futuristic developer portfolio built with Next.js, Three.js, and Framer Motion.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/Andre Esteves Logo-02.svg" },
 };
 
 export default function RootLayout({
@@ -25,12 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/Andre%20Esteves%20Logo-02.svg" type="image/svg+xml" />
       </head>
       <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
-        </ThemeProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

@@ -1,20 +1,6 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
-  --background: #e4e0ed;
-  --foreground: #1a1a28;
-  --accent: #7c3aed;
-  --accent-glow: #8b5cf6;
-  --accent-secondary: #0ea5e9;
-  --surface: #d9d4e4;
-  --surface-hover: #cec8dc;
-  --muted: #3d3849;
-  --border: rgba(30, 30, 46, 0.12);
-}
-
-.dark {
   --background: #0f0f0f;
   --foreground: #ededed;
   --accent: #a855f7;

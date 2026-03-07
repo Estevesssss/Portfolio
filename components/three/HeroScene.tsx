@@ -3,8 +3,6 @@
 import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
 import FloatingGeometry from "./FloatingGeometry";
-import { useTheme } from "@/contexts/ThemeContext";
-
 const MOBILE_BREAKPOINT = 768;
 const MOBILE_SCALE = 0.55;
 
@@ -39,8 +37,7 @@ function WebGLFallback() {
 
 export default function HeroScene() {
   const [webGLSupported, setWebGLSupported] = useState(true);
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const isDark = true;
 
   useEffect(() => {
     try {

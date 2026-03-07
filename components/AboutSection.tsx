@@ -70,7 +70,7 @@ export default function AboutSection() {
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
             >
-              <div className="mb-1 text-3xl font-bold text-accent transition-transform duration-300 group-hover:scale-110 sm:text-4xl">
+              <div className="mb-1 origin-left text-3xl font-bold text-accent transition-transform duration-300 group-hover:translate-x-2 group-hover:scale-110 sm:text-4xl">
                 {t(stat.valueKey)}
               </div>
               <div className="text-sm text-muted">{t(stat.labelKey)}</div>

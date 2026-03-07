@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
 
 const NAV_LINKS = ["about", "projects", "skills", "contact"] as const;
@@ -31,11 +30,12 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     >
       {/* Logo */}
-      <a
-        href="#hero"
-        className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent"
-      >
-        AE<span className="text-accent">.</span>
+      <a href="#hero" className="flex items-center transition-opacity hover:opacity-80">
+        <img
+          src="/Andre Esteves Logo-02.svg"
+          alt="AE Logo"
+          className="h-9 w-9"
+        />
       </a>
 
       {/* Desktop Nav Links */}
@@ -55,7 +55,6 @@ export default function Navbar() {
       {/* Controls */}
       <div className="flex items-center gap-3">
         <LanguageToggle />
-        <ThemeToggle />
 
         {/* Mobile hamburger */}
         <button
