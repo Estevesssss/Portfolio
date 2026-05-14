@@ -12,7 +12,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Portfolio | André Esteves",
   description:
-    "Premium futuristic developer portfolio built with Next.js, Three.js, and Framer Motion.",
+    "My portfolio featuring my digital footprint up until now",
   icons: { icon: "/Andre Esteves Logo-02.svg" },
 };
 
