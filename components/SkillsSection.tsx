@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 import {
   SiReact,
   SiNextdotjs,
@@ -182,6 +183,7 @@ const chipVariants = {
 
 export default function SkillsSection() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -196,7 +198,7 @@ export default function SkillsSection() {
       {/* Heading */}
       <motion.div
         className="relative z-10 mb-16 text-center"
-        initial={{ opacity: 0, y: 30 }}
+        initial={mounted ? { opacity: 0, y: 30 } : false}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >

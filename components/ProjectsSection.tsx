@@ -3,36 +3,17 @@
 import { useRef, useState, useCallback } from "react";
 import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import TableiaLogo from "@/components/svg/TableiaLogo";
-
-type SlideContent = { type: "custom"; node: React.ReactNode } | { type: "image"; src: string };
-
-/** URLs and custom slides per project. Key = project id from locale (projects.items.*.id). */
-const PROJECT_SLIDES: Record<string, SlideContent[]> = {
-  tableia: [
-    { type: "image", src: "https://github.com/user-attachments/assets/f342dfa9-33cd-4141-a299-1da6320f25a9" },
-    //{ type: "image", src: "https://github.com/user-attachments/assets/6b80a4b4-7a4d-4c16-b631-1b8aff191a99" },
-  ],
-};
-
-function getSlidesForProject(projectId: string): SlideContent[] {
-  return PROJECT_SLIDES[projectId] ?? [];
-}
-
-/** Project URL for "Ver Projeto" button. Key = project id. */
-const PROJECT_LINKS: Record<string, string> = {
-  tableia: "https://tableia.co",
-};
+import { useMounted } from "@/hooks/useMounted";
+import { projects, type Project, type ProjectSlide } from "@/data/projects";
 
 function ProjectCarousel({
-  projectId,
+  slides,
   className,
 }: {
-  projectId: string;
+  slides: ProjectSlide[];
   className?: string;
 }) {
   const [current, setCurrent] = useState(0);
-  const slides = getSlidesForProject(projectId);
   const hasSlides = slides.length > 0;
   const hasMultiple = slides.length > 1;
 
@@ -75,15 +56,11 @@ function ProjectCarousel({
           transition={{ duration: 0.25 }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          {slides[current].type === "custom"
-            ? slides[current].node
-            : (
-                <img
-                  src={slides[current].type === "image" ? slides[current].src : ""}
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
-              )}
+          <img
+            src={slides[current].src}
+            alt={slides[current].alt ?? ""}
+            className="h-full w-full object-cover"
+          />
         </motion.div>
       </AnimatePresence>
 
@@ -134,6 +111,7 @@ interface TiltCardProps {
 }
 
 function TiltCard({ index, children }: TiltCardProps) {
+  const mounted = useMounted();
   const [hovered, setHovered] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -167,12 +145,11 @@ function TiltCard({ index, children }: TiltCardProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 50 }}
+      initial={mounted ? { opacity: 0, y: 50 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {/* Dynamic glow on hover */}
       {hovered && (
         <motion.div
           className="pointer-events-none absolute -inset-px z-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -187,8 +164,70 @@ function TiltCard({ index, children }: TiltCardProps) {
   );
 }
 
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { locale, t } = useLanguage();
+  const hasProjectUrl = Boolean(project.url);
+  const showCodeButton = project.showCode;
+
+  return (
+    <TiltCard index={index}>
+      <div className="relative">
+        <ProjectCarousel slides={project.slides} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </div>
+
+      <div className="relative z-10 p-6">
+        <h3 className="mb-2 text-xl font-semibold text-foreground">
+          {project.title[locale]}
+        </h3>
+        <p className="mb-4 text-sm leading-relaxed text-muted">
+          {project.description[locale]}
+        </p>
+
+        <div className="mb-5 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex gap-3">
+          <motion.a
+            href={hasProjectUrl ? project.url : "#"}
+            target={hasProjectUrl ? "_blank" : undefined}
+            rel={hasProjectUrl ? "noopener noreferrer" : undefined}
+            className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            {t("projects.viewProject")}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
+          </motion.a>
+          {showCodeButton && (
+            <motion.a
+              href={project.codeUrl || "#"}
+              target={project.codeUrl ? "_blank" : undefined}
+              rel={project.codeUrl ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs font-medium text-muted transition-all hover:border-foreground/20 hover:text-foreground"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              {t("projects.viewCode")}
+            </motion.a>
+          )}
+        </div>
+      </div>
+    </TiltCard>
+  );
+}
+
 export default function ProjectsSection() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -200,7 +239,7 @@ export default function ProjectsSection() {
     >
       <motion.h2
         className="mb-16 text-center text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl"
-        initial={{ opacity: 0, y: 30 }}
+        initial={mounted ? { opacity: 0, y: 30 } : false}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
@@ -209,62 +248,9 @@ export default function ProjectsSection() {
       </motion.h2>
 
       <div className="grid w-full gap-8 sm:grid-cols-2">
-        {[0].map((i) => {
-          const projectId = t(`projects.items.${i}.id`);
-          return (
-          <TiltCard key={projectId} index={i}>
-            <div className="relative">
-              <ProjectCarousel projectId={projectId} />
-              <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
-            </div>
-
-            <div className="relative z-10 p-6">
-              <h3 className="mb-2 text-xl font-semibold text-foreground">
-                {t(`projects.items.${i}.title`)}
-              </h3>
-              <p className="mb-4 text-sm leading-relaxed text-muted">
-                {t(`projects.items.${i}.description`)}
-              </p>
-
-              {/* Tech stack badges */}
-              <div className="mb-5 flex flex-wrap gap-2">
-                {t(`projects.items.${i}.tech`)
-                  .split(", ")
-                  .map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-              </div>
-
-              <div className="flex gap-3">
-                <motion.a
-                  href={PROJECT_LINKS[projectId] ?? "#"}
-                  target={PROJECT_LINKS[projectId] ? "_blank" : undefined}
-                  rel={PROJECT_LINKS[projectId] ? "noopener noreferrer" : undefined}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent transition-all hover:bg-accent/20"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  {t("projects.viewProject")}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg>
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs font-medium text-muted transition-all hover:border-foreground/20 hover:text-foreground"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  {t("projects.viewCode")}
-                </motion.a>
-              </div>
-            </div>
-          </TiltCard>
-          );
-        })}
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
       </div>
     </section>
   );

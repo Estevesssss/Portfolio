@@ -2,9 +2,11 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import Particles from "./Particles";
 export default function PageParticlesBackground() {
-  const [webGLSupported, setWebGLSupported] = useState(true);
+  const mounted = useMounted();
+  const [webGLSupported, setWebGLSupported] = useState(false);
   const isDark = true;
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function PageParticlesBackground() {
     }
   }, []);
 
-  if (!webGLSupported) return null;
+  if (!mounted || !webGLSupported) return null;
 
   return (
     <div

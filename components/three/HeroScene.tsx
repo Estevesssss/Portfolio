@@ -2,6 +2,7 @@
 
 import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useState, useEffect } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import FloatingGeometry from "./FloatingGeometry";
 const MOBILE_BREAKPOINT = 768;
 const MOBILE_SCALE = 0.55;
@@ -36,7 +37,8 @@ function WebGLFallback() {
 }
 
 export default function HeroScene() {
-  const [webGLSupported, setWebGLSupported] = useState(true);
+  const mounted = useMounted();
+  const [webGLSupported, setWebGLSupported] = useState(false);
   const isDark = true;
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function HeroScene() {
     }
   }, []);
 
-  if (!webGLSupported) {
+  if (!mounted || !webGLSupported) {
     return <WebGLFallback />;
   }
 

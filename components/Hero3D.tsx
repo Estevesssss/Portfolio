@@ -3,6 +3,7 @@
 import { Suspense, lazy, useRef } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 const HeroScene = lazy(() => import("@/components/three/HeroScene"));
 
 function CanvasLoader() {
@@ -17,11 +18,12 @@ function CanvasLoader() {
 
 function ScrollIndicator() {
   const { t } = useLanguage();
+  const mounted = useMounted();
 
   return (
     <motion.div
       className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
-      initial={{ opacity: 0 }}
+      initial={mounted ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
       transition={{ delay: 2, duration: 1 }}
     >
@@ -51,6 +53,7 @@ function ScrollIndicator() {
 
 export default function Hero3D() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const sectionRef = useRef<HTMLElement>(null);
 
   const containerVariants = {
@@ -85,8 +88,8 @@ export default function Hero3D() {
       <motion.div
         className="relative z-10 flex flex-col items-center px-6 text-center"
         variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={mounted ? "hidden" : false}
+        animate={mounted ? "visible" : false}
       >
         <motion.h1
           className="mb-4 text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"

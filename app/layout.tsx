@@ -26,7 +26,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/Andre%20Esteves%20Logo-02.svg" type="image/svg+xml" />
       </head>
-      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
+      <body
+        className={`${spaceGrotesk.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

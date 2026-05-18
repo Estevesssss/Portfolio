@@ -26,15 +26,7 @@
   "projects": {
     "heading": "Projetos em Destaque",
     "viewProject": "Ver Projeto",
-    "viewCode": "Ver Código",
-    "items": {
-      "0": {
-        "id": "tableia",
-        "title": "Tableia.co",
-        "description": "Uma CRM de gestão para restaurantes, facilitando a gestão de reservas, mesas e funcionários, tudo isto com mudanças de estados em tempo real",
-        "tech": "Next.js, TypeScript, Stripe, PostgreSQL"
-      }
-    }
+    "viewCode": "Ver Código"
   },
   "skills": {
     "heading": "Competências & Tecnologias",

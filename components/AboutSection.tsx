@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 
 const stats = [
   { valueKey: "about.experienceYears", labelKey: "about.experienceLabel" },
@@ -21,6 +22,7 @@ const fadeUp = {
 
 export default function AboutSection() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -33,7 +35,7 @@ export default function AboutSection() {
       {/* Section heading */}
       <motion.h2
         className="mb-16 text-center text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl"
-        initial={{ opacity: 0, y: 30 }}
+        initial={mounted ? { opacity: 0, y: 30 } : false}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >

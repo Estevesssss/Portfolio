@@ -3,11 +3,13 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
@@ -93,7 +95,7 @@ export default function ContactSection() {
     >
       <motion.h2
         className="mb-4 text-center text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl"
-        initial={{ opacity: 0, y: 30 }}
+        initial={mounted ? { opacity: 0, y: 30 } : false}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
@@ -103,7 +105,7 @@ export default function ContactSection() {
 
       <motion.p
         className="mb-12 max-w-lg text-center text-base text-muted"
-        initial={{ opacity: 0, y: 20 }}
+        initial={mounted ? { opacity: 0, y: 20 } : false}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.15 }}
       >
@@ -113,8 +115,8 @@ export default function ContactSection() {
       <motion.form
         onSubmit={handleSubmit}
         className="flex w-full max-w-lg flex-col gap-5"
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        initial={mounted ? "hidden" : false}
+        animate={inView ? "visible" : mounted ? "hidden" : false}
       >
         <motion.div custom={0} variants={fadeUp}>
           <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground">

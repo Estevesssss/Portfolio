@@ -3,9 +3,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import type { Locale } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 
 export default function LanguageToggle() {
   const { locale, setLocale } = useLanguage();
+  const mounted = useMounted();
 
   const nextLocale: Locale = locale === "en" ? "pt" : "en";
 
@@ -18,7 +20,7 @@ export default function LanguageToggle() {
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={locale}
-          initial={{ y: -8, opacity: 0 }}
+          initial={mounted ? { y: -8, opacity: 0 } : false}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 8, opacity: 0 }}
           transition={{ duration: 0.2 }}

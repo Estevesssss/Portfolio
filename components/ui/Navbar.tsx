@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useMounted } from "@/hooks/useMounted";
 import LanguageToggle from "./LanguageToggle";
 
 const NAV_LINKS = ["about", "projects", "skills", "contact"] as const;
 
 export default function Navbar() {
   const { t } = useLanguage();
+  const mounted = useMounted();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -25,7 +27,7 @@ export default function Navbar() {
           ? "bg-background/80 shadow-lg shadow-black/5 backdrop-blur-xl"
           : "bg-transparent"
       }`}
-      initial={{ y: -80 }}
+      initial={mounted ? { y: -80 } : false}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     >
