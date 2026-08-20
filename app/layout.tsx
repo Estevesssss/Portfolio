@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   description:
     "My portfolio featuring my digital footprint up until now",
   icons: { icon: "/Andre Esteves Logo-02.svg" },
+  verification: {
+    google: "kigIKMvtfuDEjaU5nqiuBFI8faMjdxs45qSY7RfcEFs",
+  },
 };
 
 export default function RootLayout({
